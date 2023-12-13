@@ -7,15 +7,21 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
+
+  function preventScroll(e:any) {
+    e.preventDefault();
+  }
+  function allowScroll() {
+    document.body.removeEventListener('touchmove', preventScroll);
+ }
+
   useEffect(() => {
     if (isMenu) {
-      document.body.style.overflowY = 'hidden';
-      document.body.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-    }, { passive: false });
+      document.body.style.overflowY = "hidden";
+      document.body.addEventListener('touchmove', preventScroll, { passive: false });
     } else {
       document.body.style.overflowY = "auto";
-      
+      allowScroll();
     }
   }, [isMenu]);
 
