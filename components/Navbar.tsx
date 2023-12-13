@@ -10,8 +10,12 @@ const Navbar = () => {
   useEffect(() => {
     if (isMenu) {
       document.body.style.overflowY = 'hidden';
+      document.body.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+    }, { passive: false });
     } else {
       document.body.style.overflowY = "auto";
+      
     }
   }, [isMenu]);
 
