@@ -8,23 +8,6 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
 
-  function preventScroll(e:any) {
-    e.preventDefault();
-  }
-  function allowScroll() {
-    document.body.removeEventListener('touchmove', preventScroll);
- }
-
-  useEffect(() => {
-    if (isMenu) {
-      document.body.style.overflowY = "hidden";
-      document.body.addEventListener('touchmove', preventScroll, { passive: false });
-    } else {
-      document.body.style.overflowY = "auto";
-      allowScroll();
-    }
-  }, [isMenu]);
-
   return (
     <nav className="overflow-x-hidden">
       <div
@@ -79,14 +62,15 @@ const Navbar = () => {
       </div>
       {isMenu && (
         <div
-          className={`lg:hidden absolute z-30 top-0 left-0 w-[100vh] h-[100vh] backdrop-blur-sm ${
-            isMenu ? "translate-x-0 opacity-100" : "-z-10 opacity-0 hidden"
+         onClick={()=>setIsMenu(false)}
+          className={`lg:hidden fixed top-0 left-0 w-full h-full backdrop-blur-sm ${
+            isMenu ? "translate-x-0 opacity-100 z-50" : "-z-10 opacity-0 hidden"
           }  `}
         ></div>
       )}
       <div
-        className={` lg:hidden absolute right-0 top-0 p-6 w-[80%] sm:w-[60%] md:w-[50%] h-[100vh]  bg-green-50 transition-opacity duration-150 ease-in-out ${
-          isMenu ? "opacity-100 translate-x-0 z-40" : "-z-20 opacity-0"
+        className={` lg:hidden fixed right-0 top-0 p-6 w-[80%] sm:w-[60%] md:w-[50%] h-full bg-green-50 transition-opacity duration-150 ease-in-out  ${
+          isMenu ? "opacity-100 translate-x-0 z-50" : "-z-20 opacity-0"
         } `}
       >
         {isMenu && (
